@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/JJC1138/smartplug-energy-logger/issues"
   },
-  "homepage": "https://github.com/JJC1138/smartplug-energy-logger#readme"
+  "homepage": "https://github.com/JJC1138/smartplug-energy-logger#readme",
+  "dependencies": {
+    "tplink-smarthome-api": "^0.22.0"
+  }
 }

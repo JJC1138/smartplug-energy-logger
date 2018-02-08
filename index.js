@@ -1,3 +1,9 @@
 #!/usr/bin/env node
 
-console.log("hi");
+const { Client } = require('tplink-smarthome-api');
+ 
+const client = new Client();
+
+client.startDiscovery().on('device-new', (device) => {
+  device.getSysInfo().then(console.log);
+});
