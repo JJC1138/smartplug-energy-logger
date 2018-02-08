@@ -1,0 +1,19 @@
+{
+  "name": "smartplug-energy-logger",
+  "version": "0.0.1",
+  "description": "A command-line tool for logging the energy use reported by smartplugs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JJC1138/smartplug-energy-logger.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JJC1138/smartplug-energy-logger/issues"
+  },
+  "homepage": "https://github.com/JJC1138/smartplug-energy-logger#readme"
+}
