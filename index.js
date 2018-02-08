@@ -13,8 +13,9 @@ let plugs = [];
 
 function poll() {
   for (let plug of plugs) {
-    // FIXME implement
-    console.log(plug.alias);
+    plug.emeter.getRealtime().then((readings) => {
+      console.log(plug.alias + " " + readings.power);
+    });
   }
 }
 
