@@ -19,6 +19,7 @@
   "homepage": "https://github.com/JJC1138/smartplug-energy-logger#readme",
   "dependencies": {
     "commander": "^2.14.1",
+    "csv-write-stream": "^2.0.0",
     "tplink-smarthome-api": "^0.22.0"
   }
 }

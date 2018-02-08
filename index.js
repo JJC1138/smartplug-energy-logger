@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander');
+const csvWriter = require('csv-write-stream');
 const { Client } = require('tplink-smarthome-api');
 
 program
@@ -11,10 +12,17 @@ const client = new Client();
 
 let plugs = [];
 
+const csv = csvWriter();
+csv.pipe(process.stdout);
+
 function poll() {
   for (let plug of plugs) {
     plug.emeter.getRealtime().then((readings) => {
-      console.log(plug.alias + " " + readings.power);
+      csv.write({
+        timestamp: new Date().toISOString(),
+        alias: plug.alias,
+        power: readings.power
+      });
     });
   }
 }
