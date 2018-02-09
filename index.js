@@ -73,9 +73,15 @@ function poll() {
         out += calculateAverage(allDataForThisPlug, 10);
         out += calculateAverage(allDataForThisPlug, 30);
         out += calculateAverage(allDataForThisPlug, 60);
-        out += calculateAverage(allDataForThisPlug, 120);
-        out += calculateAverage(allDataForThisPlug, 300);
-        out += calculateAverage(allDataForThisPlug, 600);
+        out += calculateAverage(allDataForThisPlug, 2 * 60);
+        out += calculateAverage(allDataForThisPlug, 5 * 60);
+        out += calculateAverage(allDataForThisPlug, 10 * 60);
+        out += calculateAverage(allDataForThisPlug, 20 * 60);
+        out += calculateAverage(allDataForThisPlug, 30 * 60);
+        out += calculateAverage(allDataForThisPlug, 60 * 60);
+        out += calculateAverage(allDataForThisPlug, 6 * 60 * 60);
+        out += calculateAverage(allDataForThisPlug, 12 * 60 * 60);
+        out += calculateAverage(allDataForThisPlug, 24 * 60 * 60);
       } else {
         csv.write({
           timestamp: new Date().toISOString(),
