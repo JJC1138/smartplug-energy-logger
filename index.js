@@ -44,7 +44,7 @@ function calculateAverage(allData, interval) {
 
   if (intervalExceeded) {
     const mean = readings.reduce((a, b) => a + b) / readings.length;
-    return 'last ' + interval + ' seconds: ' + round(mean) + '\n';
+    return `last ${interval} seconds: ${round(mean)}\n`;
   } else {
     return '';
   }
@@ -58,8 +58,8 @@ function poll() {
     let promise = plug.emeter.getRealtime();
     promise.then((readings) => {
       if (program.liveAverages) {
-        out += plug.alias + '\n';
-        out += round(readings.power) + '\n';
+        out += `${plug.alias}\n`;
+        out += `${round(readings.power)}\n`;
 
         let data = {
           timestamp: new Date(),
