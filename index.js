@@ -50,58 +50,62 @@ function calculateAverage(allData, interval) {
   }
 }
 
-function poll() {
+function pollLiveAverages() {
   let out = '';
   let readingPromises = [];
 
   for (let plug of plugs) {
     let promise = plug.emeter.getRealtime();
     promise.then((readings) => {
-      if (program.liveAverages) {
-        out += `${plug.alias}\n`;
-        out += `${round(readings.power)}\n`;
+      out += `${plug.alias}\n`;
+      out += `${round(readings.power)}\n`;
 
-        let data = {
-          timestamp: new Date(),
-          plug: plug,
-          power: readings.power
-        };
-        const allDataForThisPlug = dataForPlugs[plug];
-        allDataForThisPlug.push(data);
+      let data = {
+        timestamp: new Date(),
+        plug: plug,
+        power: readings.power
+      };
+      const allDataForThisPlug = dataForPlugs[plug];
+      allDataForThisPlug.push(data);
 
-        out += calculateAverage(allDataForThisPlug, 5);
-        out += calculateAverage(allDataForThisPlug, 10);
-        out += calculateAverage(allDataForThisPlug, 30);
-        out += calculateAverage(allDataForThisPlug, 60);
-        out += calculateAverage(allDataForThisPlug, 2 * 60);
-        out += calculateAverage(allDataForThisPlug, 5 * 60);
-        out += calculateAverage(allDataForThisPlug, 10 * 60);
-        out += calculateAverage(allDataForThisPlug, 20 * 60);
-        out += calculateAverage(allDataForThisPlug, 30 * 60);
-        out += calculateAverage(allDataForThisPlug, 60 * 60);
-        out += calculateAverage(allDataForThisPlug, 6 * 60 * 60);
-        out += calculateAverage(allDataForThisPlug, 12 * 60 * 60);
-        out += calculateAverage(allDataForThisPlug, 24 * 60 * 60);
-      } else {
-        csv.write({
-          timestamp: new Date().toISOString(),
-          alias: plug.alias,
-          power: round(readings.power),
-        });
-      }
+      out += calculateAverage(allDataForThisPlug, 5);
+      out += calculateAverage(allDataForThisPlug, 10);
+      out += calculateAverage(allDataForThisPlug, 30);
+      out += calculateAverage(allDataForThisPlug, 60);
+      out += calculateAverage(allDataForThisPlug, 2 * 60);
+      out += calculateAverage(allDataForThisPlug, 5 * 60);
+      out += calculateAverage(allDataForThisPlug, 10 * 60);
+      out += calculateAverage(allDataForThisPlug, 20 * 60);
+      out += calculateAverage(allDataForThisPlug, 30 * 60);
+      out += calculateAverage(allDataForThisPlug, 60 * 60);
+      out += calculateAverage(allDataForThisPlug, 6 * 60 * 60);
+      out += calculateAverage(allDataForThisPlug, 12 * 60 * 60);
+      out += calculateAverage(allDataForThisPlug, 24 * 60 * 60);
     });
     readingPromises.push(promise);
   }
 
-  if (program.liveAverages) {
-    Promise.all(readingPromises).then(() => {
-      charm.move(0, -lastPollLines);
-      charm.erase('down');
-      charm.write(out);
-      lastPollLines = out.split('\n').length - 1;
+  Promise.all(readingPromises).then(() => {
+    charm.move(0, -lastPollLines);
+    charm.erase('down');
+    charm.write(out);
+    lastPollLines = out.split('\n').length - 1;
+  });
+}
+
+function pollLog() {
+  for (let plug of plugs) {
+    plug.emeter.getRealtime().then((readings) => {
+      csv.write({
+        timestamp: new Date().toISOString(),
+        alias: plug.alias,
+        power: round(readings.power),
+      });
     });
   }
 }
+
+const poll = program.liveAverages ? pollLiveAverages : pollLog;
 
 client.startDiscovery().on('plug-new', (plug) => {
   plugs.push(plug);
