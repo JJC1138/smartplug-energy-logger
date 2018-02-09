@@ -33,7 +33,7 @@ function movingAverage(allData, interval) {
     }
   }
 
-  if (intervalExceeded) {
+  if (intervalExceeded && readings.length > 0) {
     const mean = readings.reduce((a, b) => a + b) / readings.length;
     return `last ${interval} seconds: ${round(mean)}\n`;
   } else {
