@@ -14,15 +14,6 @@ const client = new Client();
 
 let plugs = [];
 
-charm.pipe(process.stdout);
-
-const csv = csvWriter();
-csv.pipe(process.stdout);
-
-let lastPollLines = 0;
-
-let dataForPlugs = [];
-
 function round(number) {
   const precision = 2;
   var factor = Math.pow(10, precision);
@@ -49,6 +40,11 @@ function calculateAverage(allData, interval) {
     return '';
   }
 }
+
+let lastPollLines = 0;
+let dataForPlugs = [];
+
+charm.pipe(process.stdout);
 
 function pollLiveAverages() {
   let out = '';
@@ -92,6 +88,9 @@ function pollLiveAverages() {
     lastPollLines = out.split('\n').length - 1;
   });
 }
+
+const csv = csvWriter();
+csv.pipe(process.stdout);
 
 function pollLog() {
   for (let plug of plugs) {
