@@ -1,7 +1,8 @@
 # smartplug-energy-logger
 A command-line tool for logging the energy use reported by the TP-Link HS110 Smartplug.
 
-The tool discovers all smartplugs on your network and polls and reports their current energy usage. There are two modes. The first mode simply logs the readings in a CSV (comma-separated values) format:
+## Usage
+The tool discovers all compatible smartplugs on your network and polls and reports their current energy usage. There are two modes. The first mode simply logs the readings in a CSV (comma-separated values) format:
 ```
 $ smartplug-energy-logger
 timestamp,alias,power
@@ -31,3 +32,6 @@ last 1800 seconds: 162.19
 last 3600 seconds: 162.24
 ```
 
+## Acknowledgments
+
+All the heavy lifting of accessing the device and reading its data is done by the excellent [tplink-smarthome-api](https://github.com/plasticrake/tplink-smarthome-api) library.
