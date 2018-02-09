@@ -20,7 +20,7 @@ function round(number) {
   return Math.round(number * factor) / factor;
 }
 
-function calculateAverage(allData, interval) {
+function movingAverage(allData, interval) {
   let startOfInterval = new Date() - (interval * 1000);
   let intervalExceeded = false;
   let readings = [];
@@ -64,19 +64,19 @@ function pollLiveAverages() {
       const allDataForThisPlug = dataForPlugs[plug];
       allDataForThisPlug.push(data);
 
-      out += calculateAverage(allDataForThisPlug, 5);
-      out += calculateAverage(allDataForThisPlug, 10);
-      out += calculateAverage(allDataForThisPlug, 30);
-      out += calculateAverage(allDataForThisPlug, 60);
-      out += calculateAverage(allDataForThisPlug, 2 * 60);
-      out += calculateAverage(allDataForThisPlug, 5 * 60);
-      out += calculateAverage(allDataForThisPlug, 10 * 60);
-      out += calculateAverage(allDataForThisPlug, 20 * 60);
-      out += calculateAverage(allDataForThisPlug, 30 * 60);
-      out += calculateAverage(allDataForThisPlug, 60 * 60);
-      out += calculateAverage(allDataForThisPlug, 6 * 60 * 60);
-      out += calculateAverage(allDataForThisPlug, 12 * 60 * 60);
-      out += calculateAverage(allDataForThisPlug, 24 * 60 * 60);
+      out += movingAverage(allDataForThisPlug, 5);
+      out += movingAverage(allDataForThisPlug, 10);
+      out += movingAverage(allDataForThisPlug, 30);
+      out += movingAverage(allDataForThisPlug, 60);
+      out += movingAverage(allDataForThisPlug, 2 * 60);
+      out += movingAverage(allDataForThisPlug, 5 * 60);
+      out += movingAverage(allDataForThisPlug, 10 * 60);
+      out += movingAverage(allDataForThisPlug, 20 * 60);
+      out += movingAverage(allDataForThisPlug, 30 * 60);
+      out += movingAverage(allDataForThisPlug, 60 * 60);
+      out += movingAverage(allDataForThisPlug, 6 * 60 * 60);
+      out += movingAverage(allDataForThisPlug, 12 * 60 * 60);
+      out += movingAverage(allDataForThisPlug, 24 * 60 * 60);
     });
     readingPromises.push(promise);
   }
